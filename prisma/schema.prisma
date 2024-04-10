@@ -17,7 +17,7 @@ model User {
 }
 
 model Registro {
-  id    Int     @id @default(autoincrement())
+  id    String     @id @default(uuid())
   name  String
   time DateTime
   typePoint String

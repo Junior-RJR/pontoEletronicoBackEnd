@@ -20,8 +20,6 @@ app.post('/login',async(request, replay)=>
                 name: request.body.data.name,
             }
         })
-        console.log(user,"userrrr")
-        console.log(request.body.data,"requesteee")
         if (
             user.key !== request.body.data.key
         ){
@@ -33,17 +31,27 @@ app.post('/login',async(request, replay)=>
 
 app.post('/registro',async(request, replay)=>
     {
+        function pad(value) {
+            return value.toString().padStart(2, 0);
+        }
         const {nome, tipoPonto, horario} = request.body.data
-        const registro = await prisma.registro.create({
+        const date = horario ? horario : new Date()
+        const dataBrasil = new Date(`${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours()-3)}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`)
+        await prisma.registro.create({
             data: {
                 name: nome,
                 typePoint: tipoPonto,
-                time: horario? horario: new Date(),
+                time: dataBrasil,
             }
         })
-        console.log(registro,"userRegistro")
-        console.log(request.body.data,"requestRegistro")
         return replay.send()
+    }
+)
+
+app.get('/relatorio',async(request, replay)=>
+    {
+        const listaPontos = await prisma.registro.findMany({})
+        return replay.status(200).send(listaPontos)
     }
 )
 

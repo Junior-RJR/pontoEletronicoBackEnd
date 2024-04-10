@@ -12,8 +12,12 @@ Content-Type: application/json
 
 {
     "data": {    
-        "nome": "admin",
-        "tipoPonto": "admin",
+        "nome": "Rebeca",
+        "tipoPonto": "saída",
         "horario": ""
         }
 }
+
+###
+GET http://localhost:3333/relatorio
+Content-Type: application/json

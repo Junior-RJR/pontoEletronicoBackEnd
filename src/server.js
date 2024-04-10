@@ -55,8 +55,9 @@ app.get('/relatorio',async(request, replay)=>
     }
 )
 
+const PORT = process.env.PORT || 3333
 
-app.listen({port:3333}).then( () =>
+app.listen({port:PORT}).then( () =>
     console.log("Rodandoooo")
     )
 
